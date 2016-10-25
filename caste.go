@@ -27,6 +27,12 @@ func ToTimeE(i interface{}) (tim time.Time, err error) {
 			return d, nil
 		}
 		return time.Time{}, fmt.Errorf("Could not parse Date/Time format: %v\n", e)
+	case int:
+		i, e := strconv.ParseInt(s, 10, 64)
+		if e == nil {
+			tm := time.Unix(i, 0)
+			return tm
+		}
 	default:
 		return time.Time{}, fmt.Errorf("Unable to Cast %#v to Time\n", i)
 	}
